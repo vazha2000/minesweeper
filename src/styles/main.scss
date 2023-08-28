@@ -14,7 +14,7 @@ body {
 
 .board-container {
   display: grid;
-  grid-template-columns: repeat(10, 50px);
+  // grid-template-columns: repeat(10, 50px);
 }
 
 %cell {

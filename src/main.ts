@@ -7,6 +7,7 @@ const board = new Board(10, 10, 3);
 const mainDiv = document.querySelector("div");
 const boardDiv = document.createElement("div");
 boardDiv.classList.add("board-container");
+boardDiv.style.gridTemplateColumns = `repeat(${board.width}, 50px)`
 mainDiv?.append(boardDiv);
 
 for (let i = 0; i < board.width; i++) {
@@ -16,5 +17,6 @@ for (let i = 0; i < board.width; i++) {
     cellDiv.classList.add("cell")
     cellDiv.textContent = `${i} ${j}`
     boardDiv.appendChild(cellDiv)
+    // cellDiv.addEventListener('click', () => console.log(`cell ${i} ${j} is clicked`))
   }
 }
