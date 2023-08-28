@@ -16,7 +16,7 @@ body {
   display: grid;
   // grid-template-columns: repeat(10, 50px);
   padding: 10px;
-  background-color: #808080;
+  background-color: #bebcbc;
 }
 
 %cell {
@@ -30,14 +30,23 @@ body {
 
 .cell {
   @extend %cell;
-  background-color: #c0c0c0;
+  background-color: #c6c6c6;
   position: relative;
   border-left: 5px solid #fff;
   border-top: 5px solid #fff;
   border-right: 5px solid #939393;
   border-bottom: 5px solid #939393;
+  box-sizing: border-box;
   &:hover {
-    cursor: pointer;
-    background-color: red;
+    cursor: default;
   }
+}
+
+.cell.clicked {
+  background-color: #ababab;
+  border: 3px solid gray;
+}
+
+.cell.right-clicked {
+  background-color: rgb(53, 106, 106);
 }

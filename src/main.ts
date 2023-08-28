@@ -2,9 +2,9 @@ import { Board } from "./classes/Board";
 import { Cell } from "./classes/Cell";
 import "./styles/main.scss";
 
-const board = new Board(10, 10, 3);
+const board = new Board(10, 10, 10);
 
-const mainDiv = document.querySelector("div");
+const mainDiv = document.querySelector("div") as HTMLElement;
 const boardDiv = document.createElement("div");
 boardDiv.classList.add("board-container");
 boardDiv.style.gridTemplateColumns = `repeat(${board.width}, 50px)`
@@ -18,5 +18,10 @@ for (let i = 0; i < board.width; i++) {
     cellDiv.textContent = `${i} ${j}`
     boardDiv.appendChild(cellDiv)
     // cellDiv.addEventListener('click', () => console.log(`cell ${i} ${j} is clicked`))
+    cellDiv.addEventListener('click', () => cellDiv.classList.add("clicked"))
+    cellDiv.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      cellDiv.classList.add("right-clicked")
+    })
   }
 }
