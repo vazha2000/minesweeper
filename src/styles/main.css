@@ -1,0 +1,65 @@
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  background: url(/assets/xp-bg.jpg) center/cover fixed;
+  height: 100vh;
+}
+
+.container {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: inherit;
+}
+
+.board-container {
+  display: grid;
+  padding: 10px;
+  background-color: #bebcbc;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  background-color: #c6c6c6;
+  position: relative;
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-right: 5px solid #939393;
+  border-bottom: 5px solid #939393;
+  box-sizing: border-box;
+}
+.cell:hover {
+  cursor: default;
+}
+
+.cell.clicked {
+  background-color: #ababab;
+  border: 3px solid gray;
+}
+
+.cell.right-clicked {
+  background-color: rgb(53, 106, 106);
+}/*# sourceMappingURL=main.css.map */
