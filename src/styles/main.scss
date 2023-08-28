@@ -15,6 +15,8 @@ body {
 .board-container {
   display: grid;
   // grid-template-columns: repeat(10, 50px);
+  padding: 10px;
+  background-color: #808080;
 }
 
 %cell {
@@ -23,13 +25,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black
 }
+
 
 .cell {
   @extend %cell;
-  background-color: blueviolet;
-
+  background-color: #c0c0c0;
+  position: relative;
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-right: 5px solid #939393;
+  border-bottom: 5px solid #939393;
   &:hover {
     cursor: pointer;
     background-color: red;
