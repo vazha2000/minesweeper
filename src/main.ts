@@ -1,1 +1,20 @@
+import { Board } from "./classes/Board";
+import { Cell } from "./classes/Cell";
 import "./styles/main.scss";
+
+const board = new Board(10, 10, 3);
+
+const mainDiv = document.querySelector("div");
+const boardDiv = document.createElement("div");
+boardDiv.classList.add("board-container");
+mainDiv?.append(boardDiv);
+
+for (let i = 0; i < board.width; i++) {
+  for (let j = 0; j < board.height; j++) {
+    const cell = new Cell(i, j);
+    const cellDiv = document.createElement("div");
+    cellDiv.classList.add("cell")
+    cellDiv.textContent = `${i} ${j}`
+    boardDiv.appendChild(cellDiv)
+  }
+}
