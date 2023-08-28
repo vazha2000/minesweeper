@@ -13,6 +13,7 @@ export class Board {
     this.cells = []
 
     this.initializeCells()
+    this.placeMines()
   }
 
   private initializeCells(): void {
@@ -22,6 +23,19 @@ export class Board {
         rowArray.push(new Cell(col, row));
       }
       this.cells.push(rowArray);
+    }
+  }
+
+  private placeMines(): void {
+    for(let row = 0; row < this.height; row++) {
+      for(let column=0;column<this.width;++column) {
+        let randomNumberI = Math.floor(Math.random() * 10)
+        let randomNumberJ = Math.floor(Math.random() * 10)  
+        if(this.mines !== 0) {
+          this.cells[randomNumberI][randomNumberJ].isMine =  true
+          this.mines--
+        } 
+      }
     }
   }
 }

@@ -22,12 +22,6 @@ for (let row = 0; row < board.height; row++) {
       event.preventDefault();
       cellDiv.classList.add("right-clicked");
     });
-    if (cell.isMine) {
-      cellDiv.classList.add("mine");
-    } else {
-      cellDiv.textContent = `${cell.adjacentMines}`;
-    }
-
     boardDiv.appendChild(cellDiv);
   }
 }
