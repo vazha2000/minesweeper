@@ -32,6 +32,30 @@ const adjacentMinesToImageIndex = new Map<number, number>([
   [8, 7],
 ]);
 
+let gameIsOver = false;
+
+function revealAllMines() {
+  gameIsOver = true;
+  for (let row = 0; row < board.height; row++) {
+    for (let col = 0; col < board.width; col++) {
+      const cell = board.cells[row][col];
+      const cellDiv = boardDiv.children[row * board.width + col] as HTMLElement;
+
+      if (cell.isMine && !cell.isFlagged) {
+        if (!cell.isRevealed) {
+          const bomb = document.createElement("img");
+          bomb.classList.add("bomb");
+          bomb.setAttribute("src", "assets/bomb.png");
+          cellDiv.append(bomb);
+        }
+        cellDiv.classList.add("clicked");
+      }
+    }
+  }
+}
+
+
+
 for (let row = 0; row < board.height; row++) {
   for (let col = 0; col < board.width; col++) {
     const cell = board.cells[row][col];
@@ -39,12 +63,12 @@ for (let row = 0; row < board.height; row++) {
     cellDiv.classList.add("cell");
 
     cellDiv.addEventListener("click", () => {
+      if(cell.isFlagged || cell.isRevealed || gameIsOver) {
+        return;
+      }
       if (!cell.isRevealed) {
         if (cell.isMine) {
-          const bomb = document.createElement("img");
-          bomb.classList.add("bomb");
-          bomb.setAttribute("src", "assets/bomb.png");
-          cellDiv.append(bomb);
+          revealAllMines();
         } 
          else {
           if (cell.adjacentMines !== 0) {

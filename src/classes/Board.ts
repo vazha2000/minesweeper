@@ -67,14 +67,5 @@ export class Board {
       }
     }
   }
-
-  public revealCell(row: number, column: number): void {
-    const cell = this.cells[row][column];
-
-    if(cell.isMine) {
-
-    } else {
-
-    }
-  }
+  
 }
