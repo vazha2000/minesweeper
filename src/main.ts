@@ -16,7 +16,8 @@ for (let row = 0; row < board.height; row++) {
     const cell = board.cells[row][col]; 
     const cellDiv = document.createElement("div");
     cellDiv.classList.add("cell");
-    cellDiv.textContent = `${cell.isMine}`;
+    cellDiv.textContent = `${cell.adjacentMines} ${cell.isMine}`;
+    // cellDiv.textContent = `${row} ${col}`
     cellDiv.addEventListener("click", () => cellDiv.classList.add("clicked"));
     cellDiv.addEventListener("contextmenu", (event) => {
       event.preventDefault();
