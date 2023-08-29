@@ -41,72 +41,29 @@ export class Board {
   }
 
   private calculateAdjacentMines(): void {
+    const offsets = [
+      [-1, -1], [-1, 0], [-1, 1],
+      [0, -1],           [0, 1],
+      [1, -1], [1, 0], [1, 1]
+    ];
+  
     for (let row = 0; row < this.height; row++) {
       for (let column = 0; column < this.width; column++) {
-        if (this.cells[row][column].isMine){
-          console.log(`Row ${row} Column ${column}`);
-          if(row !== 0 && row !== this.height - 1 && column !== 0 && column !== this.width - 1) {
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row - 1][column - 1].adjacentMines += 1
-            this.cells[row - 1][column].adjacentMines += 1
-            this.cells[row - 1][column + 1].adjacentMines += 1
-            this.cells[row][column + 1].adjacentMines += 1
-            this.cells[row + 1][column + 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-            this.cells[row + 1][column - 1].adjacentMines += 1
+        let currentCell = this.cells[row][column];
+  
+        if (currentCell.isMine) {
+          for (const [rowOffset, colOffset] of offsets) {
+            const newRow = row + rowOffset;
+            const newCol = column + colOffset;
+  
+            if (
+              newRow >= 0 && newRow < this.height &&
+              newCol >= 0 && newCol < this.width
+            ) {
+              this.cells[newRow][newCol].adjacentMines += 1;
+            }
           }
-          if(row === 0 && column === 0) {
-            this.cells[row][column + 1].adjacentMines += 1
-            this.cells[row + 1][column + 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-          }
-          if(row === 0 && column === this.width - 1) {
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row + 1][column - 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-          }
-          if(row === this.height - 1 && column === 0) {
-            this.cells[row - 1][column].adjacentMines += 1
-            this.cells[row - 1][column + 1].adjacentMines += 1
-            this.cells[row][column + 1].adjacentMines += 1
-          } 
-          if(row === this.height - 1 && column === this.width - 1) {
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row - 1][column - 1].adjacentMines += 1
-            this.cells[row - 1][column].adjacentMines += 1
-          }
-          
-          if(row === 0 && column !== 0 && column !== this.width - 1) {
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row + 1][column - 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-            this.cells[row + 1][column + 1].adjacentMines += 1
-            this.cells[row][column + 1].adjacentMines += 1
-          }
-          if(row === this.height - 1 && column !== 0 && column !== this.width - 1) {
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row - 1][column - 1].adjacentMines += 1
-            this.cells[row - 1][column].adjacentMines += 1
-            this.cells[row - 1][column + 1].adjacentMines += 1
-            this.cells[row][column + 1]
-          }
-          if(column === 0 && row !== 0 && row !== this.height - 1) {
-            this.cells[row - 1][column].adjacentMines += 1
-            this.cells[row - 1][column + 1].adjacentMines += 1
-            this.cells[row][column + 1].adjacentMines += 1
-            this.cells[row + 1][column + 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-          }
-          if(column === this.width - 1 && row !== 0 && row !== this.height - 1) {
-            this.cells[row - 1][column].adjacentMines += 1
-            this.cells[row - 1][column - 1].adjacentMines += 1
-            this.cells[row][column - 1].adjacentMines += 1
-            this.cells[row + 1][column - 1].adjacentMines += 1
-            this.cells[row + 1][column].adjacentMines += 1
-          }
-          
         }
-
       }
     }
   }
