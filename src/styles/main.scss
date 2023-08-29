@@ -43,10 +43,22 @@ body {
 }
 
 .cell.clicked {
-  background-color: #ababab;
+  background-color: #b9b9b9;
   border: 3px solid gray;
 }
 
 .cell.right-clicked {
   background-color: rgb(53, 106, 106);
+}
+
+.bomb {
+  width: 70%;
+}
+
+.adjacentNumberImg {
+  width: 80%;
+}
+
+.flag {
+  width: 80%;
 }

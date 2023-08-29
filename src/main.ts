@@ -10,19 +10,75 @@ boardDiv.classList.add("board-container");
 boardDiv.style.gridTemplateColumns = `repeat(${board.width}, 50px)`;
 mainDiv?.append(boardDiv);
 
+const imagePaths: string[] = [
+  "assets/one.png",
+  "assets/two.png",
+  "assets/three.png",
+  "assets/four.png",
+  "assets/five.png",
+  "assets/six.png",
+  "assets/seven.png",
+  "assets/eight.png",
+];
+
+const adjacentMinesToImageIndex = new Map<number, number>([
+  [1, 0],
+  [2, 1],
+  [3, 2],
+  [4, 3],
+  [5, 4],
+  [6, 5],
+  [7, 6],
+  [8, 7],
+]);
 
 for (let row = 0; row < board.height; row++) {
   for (let col = 0; col < board.width; col++) {
-    const cell = board.cells[row][col]; 
+    const cell = board.cells[row][col];
     const cellDiv = document.createElement("div");
     cellDiv.classList.add("cell");
-    cellDiv.textContent = `${cell.adjacentMines} ${cell.isMine}`;
-    // cellDiv.textContent = `${row} ${col}`
-    cellDiv.addEventListener("click", () => cellDiv.classList.add("clicked"));
+
+    cellDiv.addEventListener("click", () => {
+      if (!cell.isRevealed) {
+        if (cell.isMine) {
+          const bomb = document.createElement("img");
+          bomb.classList.add("bomb");
+          bomb.setAttribute("src", "assets/bomb.png");
+          cellDiv.append(bomb);
+        } 
+         else {
+          if (cell.adjacentMines !== 0) {
+            const imageIndex = adjacentMinesToImageIndex.get(
+              cell.adjacentMines
+            );
+            if (imageIndex !== undefined) {
+              const adjacentNumberImg = document.createElement("img");
+              adjacentNumberImg.classList.add("adjacentNumberImg");
+              adjacentNumberImg.setAttribute("src", imagePaths[imageIndex]);
+              cellDiv.append(adjacentNumberImg);
+            }
+          }
+        }
+        cell.isRevealed = true;
+        cellDiv.classList.add("clicked");
+      }
+    });
     cellDiv.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      cellDiv.classList.add("right-clicked");
-    });
+      if(!cell.isRevealed && !cell.isFlagged) {
+        const flag = document.createElement("img");
+          flag.classList.add("flag");
+          flag.setAttribute("src", "assets/flag.png");
+          cellDiv.append(flag);
+          cell.isFlagged = true
+      } else if(!cell.isRevealed && cell.isFlagged) {
+        const existingFlag = cellDiv.querySelector(".flag")
+        if(existingFlag) {
+          cellDiv.removeChild(existingFlag as Element)
+          cell.isFlagged =false
+        }
+      }  
+    })
     boardDiv.appendChild(cellDiv);
   }
 }
