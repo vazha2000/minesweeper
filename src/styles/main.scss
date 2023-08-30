@@ -62,3 +62,13 @@ body {
 .flag {
   width: 80%;
 }
+
+.playAgain {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100px;
+  height: 40px;
+  background-color: #c6c6c6;
+  transform: translate(-50%);
+}

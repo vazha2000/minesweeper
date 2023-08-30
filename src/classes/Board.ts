@@ -17,7 +17,7 @@ export class Board {
     this.calculateAdjacentMines();
   }
 
-  private initializeCells(): void {
+   initializeCells(): void {
     for (let row = 0; row < this.height; row++) {
       const rowArray: Cell[] = [];
       for (let col = 0; col < this.width; col++) {
@@ -27,7 +27,7 @@ export class Board {
     }
   }
 
-  private placeMines(): void {
+   placeMines(): void {
     for (let row = 0; row < this.height; row++) {
       for (let column = 0; column < this.width; ++column) {
         let randomNumberI = Math.floor(Math.random() * 10);
@@ -40,7 +40,7 @@ export class Board {
     }
   }
 
-  private calculateAdjacentMines(): void {
+   calculateAdjacentMines(): void {
     const offsets = [
       [-1, -1], [-1, 0], [-1, 1],
       [0, -1],           [0, 1],
@@ -67,5 +67,5 @@ export class Board {
       }
     }
   }
-  
+
 }

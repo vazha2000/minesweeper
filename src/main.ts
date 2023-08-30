@@ -56,6 +56,8 @@ function revealAllMines() {
 
 
 
+
+
 for (let row = 0; row < board.height; row++) {
   for (let col = 0; col < board.width; col++) {
     const cell = board.cells[row][col];
@@ -63,14 +65,21 @@ for (let row = 0; row < board.height; row++) {
     cellDiv.classList.add("cell");
 
     cellDiv.addEventListener("click", () => {
-      if(cell.isFlagged || cell.isRevealed || gameIsOver) {
+      if (cell.isFlagged || cell.isRevealed || gameIsOver) {
         return;
       }
       if (!cell.isRevealed) {
         if (cell.isMine) {
           revealAllMines();
-        } 
-         else {
+          const playAgain = document.createElement("button");
+          playAgain.textContent = "Play Again";
+          playAgain.classList.add("playAgain");
+          mainDiv.append(playAgain);
+
+          playAgain.addEventListener("click", () => {
+            gameIsOver = false;
+          })
+        } else {
           if (cell.adjacentMines !== 0) {
             const imageIndex = adjacentMinesToImageIndex.get(
               cell.adjacentMines
@@ -89,20 +98,20 @@ for (let row = 0; row < board.height; row++) {
     });
     cellDiv.addEventListener("contextmenu", (event) => {
       event.preventDefault();
-      if(!cell.isRevealed && !cell.isFlagged) {
+      if (!cell.isRevealed && !cell.isFlagged) {
         const flag = document.createElement("img");
-          flag.classList.add("flag");
-          flag.setAttribute("src", "assets/flag.png");
-          cellDiv.append(flag);
-          cell.isFlagged = true
-      } else if(!cell.isRevealed && cell.isFlagged) {
-        const existingFlag = cellDiv.querySelector(".flag")
-        if(existingFlag) {
-          cellDiv.removeChild(existingFlag as Element)
-          cell.isFlagged =false
+        flag.classList.add("flag");
+        flag.setAttribute("src", "assets/flag.png");
+        cellDiv.append(flag);
+        cell.isFlagged = true;
+      } else if (!cell.isRevealed && cell.isFlagged) {
+        const existingFlag = cellDiv.querySelector(".flag");
+        if (existingFlag) {
+          cellDiv.removeChild(existingFlag as Element);
+          cell.isFlagged = false;
         }
-      }  
-    })
+      }
+    });
     boardDiv.appendChild(cellDiv);
   }
 }
