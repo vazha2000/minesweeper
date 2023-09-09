@@ -34,6 +34,24 @@ const adjacentMinesToImageIndex = new Map<number, number>([
 
 let gameIsOver = false;
 
+const winMessage = document.createElement("div");
+winMessage.textContent = "You've won!";
+winMessage.classList.add("win-message");
+mainDiv.append(winMessage);
+winMessage.style.display = "none";
+
+function checkForWin() {
+  for (let row = 0; row < board.height; row++) {
+    for (let col = 0; col < board.width; col++) {
+      const cell = board.cells[row][col];
+      if (!cell.isMine && !cell.isRevealed) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function revealAllMines() {
   gameIsOver = true;
   for (let row = 0; row < board.height; row++) {
@@ -53,6 +71,10 @@ function revealAllMines() {
     }
   }
 
+  if (checkForWin()) {
+    winMessage.style.display = "block";
+  }
+
   const playAgain = document.createElement("button");
   playAgain.textContent = "Play Again";
   playAgain.classList.add("playAgain");
@@ -63,23 +85,12 @@ function revealAllMines() {
   });
 }
 
-function checkForWin() {
-  for (let row = 0; row < board.height; row++) {
-    for (let col = 0; col < board.width; col++) {
-      const cell = board.cells[row][col];
-      if (!cell.isMine && !cell.isRevealed) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-}
-
 function resetGame() {
   boardDiv.innerHTML = "";
 
   gameIsOver = false;
+
+  winMessage.style.display = "none";
 
   board = new Board(10, 10, 10);
 
@@ -113,7 +124,7 @@ function resetGame() {
           cellDiv.classList.add("clicked");
 
           if (checkForWin()) {
-            console.log("You won!!!")
+            winMessage.style.display = "block";
           }
         }
       });
