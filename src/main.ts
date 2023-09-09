@@ -35,10 +35,18 @@ const adjacentMinesToImageIndex = new Map<number, number>([
 let gameIsOver = false;
 
 const winMessage = document.createElement("div");
-winMessage.textContent = "You've won! click to play again";
+winMessage.textContent = "You've won! Click to play again";
 winMessage.classList.add("win-message");
 mainDiv.append(winMessage);
 winMessage.style.display = "none";
+
+// Function to reset the game when the win message is clicked
+function resetGameFromWin() {
+  resetGame();
+}
+
+// Add a click event listener to the win message
+winMessage.addEventListener("click", resetGameFromWin);
 
 function checkForWin() {
   for (let row = 0; row < board.height; row++) {
