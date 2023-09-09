@@ -7,7 +7,6 @@ let board = new Board(10, 10, 10);
 const mainDiv = document.querySelector("div") as HTMLElement;
 const boardDiv = document.createElement("div");
 boardDiv.classList.add("board-container");
-boardDiv.style.gridTemplateColumns = `repeat(${board.width}, 50px)`;
 mainDiv?.append(boardDiv);
 
 const imagePaths: string[] = [
