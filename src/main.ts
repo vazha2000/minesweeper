@@ -40,12 +40,10 @@ winMessage.classList.add("win-message");
 mainDiv.append(winMessage);
 winMessage.style.display = "none";
 
-// Function to reset the game when the win message is clicked
 function resetGameFromWin() {
   resetGame();
 }
 
-// Add a click event listener to the win message
 winMessage.addEventListener("click", resetGameFromWin);
 
 function checkForWin() {
