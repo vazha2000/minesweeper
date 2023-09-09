@@ -63,6 +63,19 @@ function revealAllMines() {
   });
 }
 
+function checkForWin() {
+  for (let row = 0; row < board.height; row++) {
+    for (let col = 0; col < board.width; col++) {
+      const cell = board.cells[row][col];
+      if (!cell.isMine && !cell.isRevealed) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
 function resetGame() {
   boardDiv.innerHTML = "";
 
@@ -77,7 +90,7 @@ function resetGame() {
       cellDiv.classList.add("cell");
 
       cellDiv.addEventListener("click", () => {
-        if (cell.isFlagged || cell.isRevealed || gameIsOver) {
+        if (checkForWin() || cell.isFlagged || cell.isRevealed || gameIsOver) {
           return;
         }
         if (!cell.isRevealed) {
@@ -98,6 +111,10 @@ function resetGame() {
           }
           cell.isRevealed = true;
           cellDiv.classList.add("clicked");
+
+          if (checkForWin()) {
+            console.log("You won!!!")
+          }
         }
       });
       cellDiv.addEventListener("contextmenu", (event) => {
