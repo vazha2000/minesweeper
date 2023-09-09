@@ -52,6 +52,15 @@ function revealAllMines() {
       }
     }
   }
+
+  const playAgain = document.createElement("button");
+  playAgain.textContent = "Play Again";
+  playAgain.classList.add("playAgain");
+  mainDiv.append(playAgain);
+
+  playAgain.addEventListener("click", () => {
+    resetGame();
+  });
 }
 
 function resetGame() {
@@ -74,14 +83,6 @@ function resetGame() {
         if (!cell.isRevealed) {
           if (cell.isMine) {
             revealAllMines();
-            const playAgain = document.createElement("button");
-            playAgain.textContent = "Play Again";
-            playAgain.classList.add("playAgain");
-            mainDiv.append(playAgain);
-
-            playAgain.addEventListener("click", () => {
-              resetGame();
-            });
           } else {
             if (cell.adjacentMines !== 0) {
               const imageIndex = adjacentMinesToImageIndex.get(
@@ -120,14 +121,4 @@ function resetGame() {
   }
 }
 
-const playAgain = document.createElement("button");
-playAgain.textContent = "Play Again";
-playAgain.classList.add("playAgain");
-mainDiv.append(playAgain);
-
-playAgain.addEventListener("click", () => {
-  resetGame();
-});
-
 resetGame();
-
