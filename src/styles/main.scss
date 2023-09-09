@@ -14,9 +14,13 @@ body {
 
 .board-container {
   display: grid;
-  // grid-template-columns: repeat(10, 50px);
+  grid-template-columns: repeat(10, 50px);
   padding: 10px;
   background-color: #bebcbc;
+
+  @media screen and (max-width: 800px){
+    grid-template-columns: repeat(10, 28px);
+  }
 }
 
 %cell {
@@ -25,6 +29,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 800px){
+    width: 28px;
+    height: 28px;
+  }
 }
 
 
@@ -39,6 +48,12 @@ body {
   box-sizing: border-box;
   &:hover {
     cursor: default;
+  }
+  @media screen and (max-width: 800px){
+    border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #939393;
+  border-bottom: 4px solid #939393;
   }
 }
 
