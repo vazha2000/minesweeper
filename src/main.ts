@@ -35,7 +35,7 @@ const adjacentMinesToImageIndex = new Map<number, number>([
 let gameIsOver = false;
 
 const winMessage = document.createElement("div");
-winMessage.textContent = "You've won!";
+winMessage.textContent = "You've won! click to play again";
 winMessage.classList.add("win-message");
 mainDiv.append(winMessage);
 winMessage.style.display = "none";
