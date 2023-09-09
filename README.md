@@ -1,6 +1,6 @@
 # Minesweeper
 
-**You can review DEMO version here-** https://oldminesweeper.netlify.app/
+**You can review DEMO version here -** https://oldminesweeper.netlify.app/
 
 ## Table of contents
 
@@ -25,7 +25,7 @@ This Minesweeper game is a classic puzzle game developed in TypeScript and style
 
 ## Installation
 
-1. Close the repository: git clone https://github.com/vazha2000/minesweeper.git
+1. Clone the repository: git clone https://github.com/vazha2000/minesweeper.git
 2. Navigate to the project directory: **cd minesweeper**
 3. Install dependencies: **npm install**
 
