@@ -2,7 +2,7 @@ import { Board } from "./classes/Board";
 import { Cell } from "./classes/Cell";
 import "./styles/main.scss";
 
-const board = new Board(10, 10, 10);
+let board = new Board(10, 10, 10);
 
 const mainDiv = document.querySelector("div") as HTMLElement;
 const boardDiv = document.createElement("div");
@@ -54,64 +54,80 @@ function revealAllMines() {
   }
 }
 
+function resetGame() {
+  boardDiv.innerHTML = "";
 
+  gameIsOver = false;
 
+  board = new Board(10, 10, 10);
 
+  for (let row = 0; row < board.height; row++) {
+    for (let col = 0; col < board.width; col++) {
+      const cell = board.cells[row][col];
+      const cellDiv = document.createElement("div");
+      cellDiv.classList.add("cell");
 
-for (let row = 0; row < board.height; row++) {
-  for (let col = 0; col < board.width; col++) {
-    const cell = board.cells[row][col];
-    const cellDiv = document.createElement("div");
-    cellDiv.classList.add("cell");
+      cellDiv.addEventListener("click", () => {
+        if (cell.isFlagged || cell.isRevealed || gameIsOver) {
+          return;
+        }
+        if (!cell.isRevealed) {
+          if (cell.isMine) {
+            revealAllMines();
+            const playAgain = document.createElement("button");
+            playAgain.textContent = "Play Again";
+            playAgain.classList.add("playAgain");
+            mainDiv.append(playAgain);
 
-    cellDiv.addEventListener("click", () => {
-      if (cell.isFlagged || cell.isRevealed || gameIsOver) {
-        return;
-      }
-      if (!cell.isRevealed) {
-        if (cell.isMine) {
-          revealAllMines();
-          const playAgain = document.createElement("button");
-          playAgain.textContent = "Play Again";
-          playAgain.classList.add("playAgain");
-          mainDiv.append(playAgain);
-
-          playAgain.addEventListener("click", () => {
-            gameIsOver = false;
-          })
-        } else {
-          if (cell.adjacentMines !== 0) {
-            const imageIndex = adjacentMinesToImageIndex.get(
-              cell.adjacentMines
-            );
-            if (imageIndex !== undefined) {
-              const adjacentNumberImg = document.createElement("img");
-              adjacentNumberImg.classList.add("adjacentNumberImg");
-              adjacentNumberImg.setAttribute("src", imagePaths[imageIndex]);
-              cellDiv.append(adjacentNumberImg);
+            playAgain.addEventListener("click", () => {
+              resetGame();
+            });
+          } else {
+            if (cell.adjacentMines !== 0) {
+              const imageIndex = adjacentMinesToImageIndex.get(
+                cell.adjacentMines
+              );
+              if (imageIndex !== undefined) {
+                const adjacentNumberImg = document.createElement("img");
+                adjacentNumberImg.classList.add("adjacentNumberImg");
+                adjacentNumberImg.setAttribute("src", imagePaths[imageIndex]);
+                cellDiv.append(adjacentNumberImg);
+              }
             }
           }
+          cell.isRevealed = true;
+          cellDiv.classList.add("clicked");
         }
-        cell.isRevealed = true;
-        cellDiv.classList.add("clicked");
-      }
-    });
-    cellDiv.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      if (!cell.isRevealed && !cell.isFlagged) {
-        const flag = document.createElement("img");
-        flag.classList.add("flag");
-        flag.setAttribute("src", "assets/flag.png");
-        cellDiv.append(flag);
-        cell.isFlagged = true;
-      } else if (!cell.isRevealed && cell.isFlagged) {
-        const existingFlag = cellDiv.querySelector(".flag");
-        if (existingFlag) {
-          cellDiv.removeChild(existingFlag as Element);
-          cell.isFlagged = false;
+      });
+      cellDiv.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        if (!cell.isRevealed && !cell.isFlagged) {
+          const flag = document.createElement("img");
+          flag.classList.add("flag");
+          flag.setAttribute("src", "assets/flag.png");
+          cellDiv.append(flag);
+          cell.isFlagged = true;
+        } else if (!cell.isRevealed && cell.isFlagged) {
+          const existingFlag = cellDiv.querySelector(".flag");
+          if (existingFlag) {
+            cellDiv.removeChild(existingFlag as Element);
+            cell.isFlagged = false;
+          }
         }
-      }
-    });
-    boardDiv.appendChild(cellDiv);
+      });
+      boardDiv.appendChild(cellDiv);
+    }
   }
 }
+
+const playAgain = document.createElement("button");
+playAgain.textContent = "Play Again";
+playAgain.classList.add("playAgain");
+mainDiv.append(playAgain);
+
+playAgain.addEventListener("click", () => {
+  resetGame();
+});
+
+resetGame();
+
